@@ -1,0 +1,23 @@
+{
+    "name": "vivarium/assertion",
+    "description": "Assertion library useful for catching defects during development.",
+    "type": "library",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Luca Cantoreggi",
+            "email": "luca@cn7r66.com"
+        }
+    ],
+    "require": {
+        "php" : "^7.4",
+        "ext-mbstring": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Vivarium\\Assertion\\": "./"
+        }
+    }
+}
