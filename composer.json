@@ -12,12 +12,12 @@
         }
     ],
     "require": {
-        "php" : "^7.4",
+        "php" : ">=7.4",
         "ext-mbstring": "*"
     },
     "autoload": {
         "psr-4": {
-            "Vivarium\\Assertion\\": "./"
+            "Vivarium\\Assertion\\": "src"
         }
     }
 }
