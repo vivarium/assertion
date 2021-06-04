@@ -1,9 +1,9 @@
 <?php
 
-/**
+/*
  * This file is part of Vivarium
  * SPDX-License-Identifier: MIT
- * Copyright (c) 2020 Luca Cantoreggi
+ * Copyright (c) 2021 Luca Cantoreggi
  */
 
 declare(strict_types=1);
@@ -15,18 +15,23 @@ use Vivarium\Assertion\Assertion;
 use Vivarium\Assertion\Helpers\TypeToString;
 use Vivarium\Assertion\String\IsEmpty;
 use Vivarium\Equality\EqualsBuilder;
+
 use function array_merge;
 use function is_object;
 use function sprintf;
 
+/**
+ * @template T
+ * @template-implements Assertion<T>
+ */
 final class IsOneOf implements Assertion
 {
-    /** @var mixed[] */
+    /** @var array<T> */
     private array $choices;
 
     /**
-     * @param mixed $choice
-     * @param mixed ...$choices
+     * @param T $choice
+     * @param T ...$choices
      */
     public function __construct($choice, ...$choices)
     {
@@ -36,9 +41,9 @@ final class IsOneOf implements Assertion
     /**
      * @param mixed $value
      *
-     * @throws InvalidArgumentException
+     * @psalm-assert T $value
      */
-    public function assert($value, string $message = '') : void
+    public function assert($value, string $message = ''): void
     {
         if (! $this($value)) {
             $message = sprintf(
@@ -53,8 +58,10 @@ final class IsOneOf implements Assertion
 
     /**
      * @param mixed $value
+     *
+     * @psalm-assert-if-true T $value
      */
-    public function __invoke($value) : bool
+    public function __invoke($value): bool
     {
         foreach ($this->choices as $choice) {
             if ((new EqualsBuilder())->append($value, $choice)->isEquals()) {

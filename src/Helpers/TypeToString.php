@@ -1,9 +1,9 @@
 <?php
 
-/**
+/*
  * This file is part of Vivarium
  * SPDX-License-Identifier: MIT
- * Copyright (c) 2020 Luca Cantoreggi
+ * Copyright (c) 2021 Luca Cantoreggi
  */
 
 declare(strict_types=1);
@@ -15,12 +15,15 @@ use function is_array;
 use function is_object;
 use function is_string;
 
+/**
+ * @internal
+ */
 final class TypeToString
 {
     /**
      * @param mixed $value
      */
-    public function __invoke($value) : string
+    public function __invoke($value): string
     {
         if ($value === true) {
             return 'true';

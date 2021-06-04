@@ -1,9 +1,9 @@
 <?php
 
-/**
+/*
  * This file is part of Vivarium
  * SPDX-License-Identifier: MIT
- * Copyright (c) 2020 Luca Cantoreggi
+ * Copyright (c) 2021 Luca Cantoreggi
  */
 
 declare(strict_types=1);
@@ -14,24 +14,31 @@ use InvalidArgumentException;
 use Vivarium\Assertion\Assertion;
 use Vivarium\Assertion\Helpers\TypeToString;
 use Vivarium\Assertion\String\IsEmpty;
+
 use function get_class;
 use function sprintf;
 
+/**
+ * @template T
+ * @template-implements Assertion<T>
+ */
 final class Not implements Assertion
 {
+    /** @var Assertion<T> */
     private Assertion $assertion;
 
+    /**
+     * @param Assertion<T> $assertion
+     */
     public function __construct(Assertion $assertion)
     {
         $this->assertion = $assertion;
     }
 
     /**
-     * @param mixed $value
-     *
-     * @throws InvalidArgumentException
+     * @param T $value
      */
-    public function assert($value, string $message = '') : void
+    public function assert($value, string $message = ''): void
     {
         if (! $this($value)) {
             $message = sprintf(
@@ -46,9 +53,9 @@ final class Not implements Assertion
     }
 
     /**
-     * @param mixed $value
+     * @param T $value
      */
-    public function __invoke($value) : bool
+    public function __invoke($value): bool
     {
         return ! ($this->assertion)($value);
     }

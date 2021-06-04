@@ -1,9 +1,9 @@
 <?php
 
-/**
+/*
  * This file is part of Vivarium
  * SPDX-License-Identifier: MIT
- * Copyright (c) 2020 Luca Cantoreggi
+ * Copyright (c) 2021 Luca Cantoreggi
  */
 
 declare(strict_types=1);
@@ -14,25 +14,32 @@ use InvalidArgumentException;
 use Vivarium\Assertion\Assertion;
 use Vivarium\Assertion\Helpers\TypeToString;
 use Vivarium\Assertion\String\IsEmpty;
+
 use function array_merge;
 use function sprintf;
 
+/**
+ * @template T
+ * @template-implements Assertion<T>
+ */
 final class Either implements Assertion
 {
-    /** @var Assertion[] */
+    /** @var array<Assertion<T>> */
     private array $assertions;
 
+    /**
+     * @param Assertion<T> $assertion
+     * @param Assertion<T> ...$assertions
+     */
     public function __construct(Assertion $assertion, Assertion ...$assertions)
     {
         $this->assertions = array_merge([$assertion], $assertions);
     }
 
     /**
-     * @param mixed $value
-     *
-     * @throws InvalidArgumentException
+     * @param T $value
      */
-    public function assert($value, string $message = '') : void
+    public function assert($value, string $message = ''): void
     {
         if (! $this($value)) {
             $message = sprintf(
@@ -46,9 +53,9 @@ final class Either implements Assertion
     }
 
     /**
-     * @param mixed $value
+     * @param T $value
      */
-    public function __invoke($value) : bool
+    public function __invoke($value): bool
     {
         foreach ($this->assertions as $assertion) {
             if ($assertion($value)) {

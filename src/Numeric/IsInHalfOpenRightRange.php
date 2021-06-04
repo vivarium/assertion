@@ -1,9 +1,9 @@
 <?php
 
-/**
- *  This file is part of Vivarium
- *  SPDX-License-Identifier: MIT
- *  Copyright (c) 2020 Luca Cantoreggi
+/*
+ * This file is part of Vivarium
+ * SPDX-License-Identifier: MIT
+ * Copyright (c) 2021 Luca Cantoreggi
  */
 
 declare(strict_types=1);
@@ -15,15 +15,25 @@ use Vivarium\Assertion\Assertion;
 use Vivarium\Assertion\Helpers\TypeToString;
 use Vivarium\Assertion\String\IsEmpty;
 use Vivarium\Assertion\Type\IsNumeric;
+
 use function sprintf;
 
+/**
+ * @template-implements Assertion<int|float>
+ */
 final class IsInHalfOpenRightRange implements Assertion
 {
-    private float $min;
+    /** @var int|float */
+    private $min;
 
-    private float $max;
+    /** @var int|float */
+    private $max;
 
-    public function __construct(float $min, float $max)
+    /**
+     * @param int|float $min
+     * @param int|float $max
+     */
+    public function __construct($min, $max)
     {
         (new IsLessOrEqualThan($max))
             ->assert($min, 'Lower bound must be lower than upper bound. Got [%1$s, %2$s).');
@@ -33,9 +43,9 @@ final class IsInHalfOpenRightRange implements Assertion
     }
 
     /**
-     * @param mixed $value
+     * @param int|float $value
      */
-    public function assert($value, string $message = '') : void
+    public function assert($value, string $message = ''): void
     {
         if (! $this($value)) {
             $message = sprintf(
@@ -51,9 +61,9 @@ final class IsInHalfOpenRightRange implements Assertion
     }
 
     /**
-     * @param mixed $value
+     * @param int|float $value
      */
-    public function __invoke($value) : bool
+    public function __invoke($value): bool
     {
         (new IsNumeric())->assert($value);
 

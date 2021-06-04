@@ -1,9 +1,9 @@
 <?php
 
-/**
+/*
  * This file is part of Vivarium
  * SPDX-License-Identifier: MIT
- * Copyright (c) 2020 Luca Cantoreggi
+ * Copyright (c) 2021 Luca Cantoreggi
  */
 
 declare(strict_types=1);
@@ -16,19 +16,21 @@ use Vivarium\Assertion\Encoding\IsSystemEncoding;
 use Vivarium\Assertion\Helpers\TypeToString;
 use Vivarium\Assertion\Numeric\IsGreaterThan;
 use Vivarium\Assertion\Type\IsString;
-use function mb_internal_encoding;
+
 use function mb_strlen;
 use function sprintf;
 
+/**
+ * @template-implements Assertion<string>
+ */
 final class IsLongAtMax implements Assertion
 {
     private int $length;
 
     private string $encoding;
 
-    public function __construct(int $length, ?string $encoding = null)
+    public function __construct(int $length, string $encoding = 'UTF-8')
     {
-        $encoding = $encoding ?? mb_internal_encoding();
         (new IsSystemEncoding())->assert($encoding);
         (new IsGreaterThan(0))->assert($length);
 
@@ -37,11 +39,9 @@ final class IsLongAtMax implements Assertion
     }
 
     /**
-     * @param mixed $value
-     *
-     * @throws InvalidArgumentException
+     * @param string $value
      */
-    public function assert($value, string $message = '') : void
+    public function assert($value, string $message = ''): void
     {
         if (! $this($value)) {
             $message = sprintf(
@@ -57,9 +57,9 @@ final class IsLongAtMax implements Assertion
     }
 
     /**
-     * @param mixed $value
+     * @param string $value
      */
-    public function __invoke($value) : bool
+    public function __invoke($value): bool
     {
         (new IsString())->assert($value);
 

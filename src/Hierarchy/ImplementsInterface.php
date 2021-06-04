@@ -1,9 +1,9 @@
 <?php
 
-/**
+/*
  * This file is part of Vivarium
  * SPDX-License-Identifier: MIT
- * Copyright (c) 2020 Luca Cantoreggi
+ * Copyright (c) 2021 Luca Cantoreggi
  */
 
 declare(strict_types=1);
@@ -16,14 +16,23 @@ use Vivarium\Assertion\Helpers\TypeToString;
 use Vivarium\Assertion\String\IsClass;
 use Vivarium\Assertion\String\IsEmpty;
 use Vivarium\Assertion\String\IsInterface;
+
 use function class_implements;
 use function in_array;
 use function sprintf;
 
+/**
+ * @template T
+ * @template-implements Assertion<class-string>
+ */
 final class ImplementsInterface implements Assertion
 {
+    /** @var class-string<T> */
     private string $interface;
 
+    /**
+     * @param class-string<T> $interface
+     */
     public function __construct(string $interface)
     {
         (new IsInterface())->assert($interface);
@@ -32,9 +41,11 @@ final class ImplementsInterface implements Assertion
     }
 
     /**
-     * @param mixed $value
+     * @param class-string $value
+     *
+     * @psalm-assert class-string<T> $value
      */
-    public function assert($value, string $message = '') : void
+    public function assert($value, string $message = ''): void
     {
         if (! $this($value)) {
             $message = sprintf(
@@ -49,12 +60,17 @@ final class ImplementsInterface implements Assertion
     }
 
     /**
-     * @param mixed $value
+     * @param class-string $value
+     *
+     * @psalm-assert-if-true class-string<T> $value
      */
-    public function __invoke($value) : bool
+    public function __invoke($value): bool
     {
         (new IsClass())->assert($value);
 
-        return in_array($this->interface, class_implements($value), true);
+        $interfaces = class_implements($value);
+
+        return $interfaces === false ?
+            $interfaces : in_array($this->interface, $interfaces, true);
     }
 }

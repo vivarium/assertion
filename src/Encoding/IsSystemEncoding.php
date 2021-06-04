@@ -1,9 +1,9 @@
 <?php
 
-/**
+/*
  * This file is part of Vivarium
  * SPDX-License-Identifier: MIT
- * Copyright (c) 2020 Luca Cantoreggi
+ * Copyright (c) 2021 Luca Cantoreggi
  */
 
 declare(strict_types=1);
@@ -11,20 +11,24 @@ declare(strict_types=1);
 namespace Vivarium\Assertion\Encoding;
 
 use InvalidArgumentException;
+use ValueError;
 use Vivarium\Assertion\Assertion;
 use Vivarium\Assertion\Helpers\TypeToString;
+use Vivarium\Assertion\Type\IsBoolean;
 use Vivarium\Assertion\Type\IsString;
+
 use function mb_internal_encoding;
 use function sprintf;
 
+/**
+ * @template-implements Assertion<string>
+ */
 final class IsSystemEncoding implements Assertion
 {
     /**
-     * @param mixed $value
-     *
-     * @throws InvalidArgumentException
+     * @param string $value
      */
-    public function assert($value, string $message = '') : void
+    public function assert($value, string $message = ''): void
     {
         if (! ($this)($value)) {
             $message = sprintf(
@@ -37,15 +41,26 @@ final class IsSystemEncoding implements Assertion
     }
 
     /**
-     * @param mixed $value
+     * @param string $value
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
-    public function __invoke($value) : bool
+    public function __invoke($value): bool
     {
         (new IsString())->assert($value);
 
         $encoding = mb_internal_encoding();
-        $valid    = @mb_internal_encoding($value);
-        mb_internal_encoding($encoding);
+        (new IsString())->assert($encoding);
+
+        try {
+            $valid = @mb_internal_encoding($value);
+            (new IsBoolean())->assert($valid);
+        } catch (ValueError $error) {
+            $valid = false;
+        } finally {
+            // Restore the previous encoding
+            mb_internal_encoding($encoding);
+        }
 
         return $valid;
     }

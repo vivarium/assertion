@@ -1,9 +1,9 @@
 <?php
 
-/**
+/*
  * This file is part of Vivarium
  * SPDX-License-Identifier: MIT
- * Copyright (c) 2020 Luca Cantoreggi
+ * Copyright (c) 2021 Luca Cantoreggi
  */
 
 declare(strict_types=1);
@@ -15,31 +15,38 @@ use Vivarium\Assertion\Assertion;
 use Vivarium\Assertion\Conditional\Either;
 use Vivarium\Assertion\Helpers\TypeToString;
 use Vivarium\Assertion\String\IsClass;
+use Vivarium\Assertion\String\IsClassOrInterface;
 use Vivarium\Assertion\String\IsEmpty;
 use Vivarium\Assertion\String\IsInterface;
+
 use function is_subclass_of;
 use function sprintf;
 
+/**
+ * @template T
+ * @template-implements Assertion<class-string>
+ */
 final class IsSubclassOf implements Assertion
 {
+    /** @var class-string<T> */
     private string $class;
 
+    /**
+     * @param class-string<T> $class
+     */
     public function __construct(string $class)
     {
-        (new Either(
-            new IsClass(),
-            new IsInterface()
-        ))->assert($class, 'Argument must be a class or interface name. Got %s');
+        (new IsClassOrInterface())->assert($class);
 
         $this->class = $class;
     }
 
     /**
-     * @param mixed $value
+     * @param class-string $value
      *
-     * @throws InvalidArgumentException
+     * @psalm-assert class-string<T> $value
      */
-    public function assert($value, string $message = '') : void
+    public function assert($value, string $message = ''): void
     {
         if (! $this($value)) {
             $message = sprintf(
@@ -54,9 +61,11 @@ final class IsSubclassOf implements Assertion
     }
 
     /**
-     * @param mixed $value
+     * @param class-string $value
+     *
+     * @psalm-assert-if-true class-string<T> $value
      */
-    public function __invoke($value) : bool
+    public function __invoke($value): bool
     {
         (new Either(
             new IsClass(),

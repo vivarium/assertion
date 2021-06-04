@@ -1,9 +1,9 @@
 <?php
 
-/**
+/*
  * This file is part of Vivarium
  * SPDX-License-Identifier: MIT
- * Copyright (c) 2020 Luca Cantoreggi
+ * Copyright (c) 2021 Luca Cantoreggi
  */
 
 declare(strict_types=1);
@@ -15,11 +15,16 @@ use Vivarium\Assertion\Assertion;
 use Vivarium\Assertion\Helpers\TypeToString;
 use Vivarium\Assertion\String\IsEmpty;
 use Vivarium\Assertion\Type\IsNumeric;
+
 use function sprintf;
 
+/**
+ * @template-implements Assertion<int|float>
+ */
 final class IsLessOrEqualThan implements Assertion
 {
-    private float $compare;
+    /** @var int|float */
+    private $compare;
 
     public function __construct(float $compare)
     {
@@ -27,11 +32,9 @@ final class IsLessOrEqualThan implements Assertion
     }
 
     /**
-     * @param mixed $value
-     *
-     * @throws InvalidArgumentException
+     * @param int|float $value
      */
-    public function assert($value, string $message = '') : void
+    public function assert($value, string $message = ''): void
     {
         if (! $this($value)) {
             $message = sprintf(
@@ -46,9 +49,9 @@ final class IsLessOrEqualThan implements Assertion
     }
 
     /**
-     * @param mixed $value
+     * @param int|float $value
      */
-    public function __invoke($value) : bool
+    public function __invoke($value): bool
     {
         (new IsNumeric())->assert($value);
 
