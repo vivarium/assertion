@@ -10,8 +10,8 @@ declare(strict_types=1);
 
 namespace Vivarium\Assertion\Numeric;
 
-use InvalidArgumentException;
 use Vivarium\Assertion\Assertion;
+use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Helpers\TypeToString;
 use Vivarium\Assertion\String\IsEmpty;
 use Vivarium\Assertion\Type\IsNumeric;
@@ -47,7 +47,7 @@ final class IsLessThan implements Assertion
                 (new TypeToString())($this->compare)
             );
 
-            throw new InvalidArgumentException($message);
+            throw new AssertionFailed($message);
         }
     }
 

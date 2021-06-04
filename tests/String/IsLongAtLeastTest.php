@@ -10,8 +10,8 @@ declare(strict_types=1);
 
 namespace Vivarium\Assertion\Test\String;
 
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\String\IsLongAtLeast;
 
 /**
@@ -26,7 +26,7 @@ final class IsLongAtLeastTest extends TestCase
      */
     public function testAssert(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected string to be long at least 6. Got 5');
 
         (new IsLongAtLeast(3))->assert('Hello');
@@ -41,7 +41,7 @@ final class IsLongAtLeastTest extends TestCase
      */
     public function testIsLongAtLeastWithWrongEncoding(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('"Foo" is not a valid system encoding.');
 
         (new IsLongAtLeast(3, 'Foo'))->assert('Hello');
@@ -54,7 +54,7 @@ final class IsLongAtLeastTest extends TestCase
      */
     public function testIsLongAtLeastWithZeroLength(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected number to be greater than 0. Got 0.');
 
         (new IsLongAtLeast(0))->assert('Hello');
@@ -65,7 +65,7 @@ final class IsLongAtLeastTest extends TestCase
      */
     public function testAssertWithoutString(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected value to be string. Got integer.');
 
         /**
@@ -82,7 +82,7 @@ final class IsLongAtLeastTest extends TestCase
      */
     public function testAssertWithMultibyte(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected string to be long at least 2. Got 1.');
 
         (new IsLongAtLeast(2, 'UTF-8'))->assert('π');

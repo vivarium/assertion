@@ -10,8 +10,8 @@ declare(strict_types=1);
 
 namespace Vivarium\Assertion\String;
 
-use InvalidArgumentException;
 use Vivarium\Assertion\Assertion;
+use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Helpers\TypeToString;
 use Vivarium\Assertion\Type\IsString;
 
@@ -45,7 +45,7 @@ final class EndsWith implements Assertion
                 (new TypeToString())($this->end)
             );
 
-            throw new InvalidArgumentException($message);
+            throw new AssertionFailed($message);
         }
     }
 

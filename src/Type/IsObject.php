@@ -10,8 +10,8 @@ declare(strict_types=1);
 
 namespace Vivarium\Assertion\Type;
 
-use InvalidArgumentException;
 use Vivarium\Assertion\Assertion;
+use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Helpers\TypeToString;
 use Vivarium\Assertion\String\IsEmpty;
 
@@ -39,7 +39,7 @@ final class IsObject implements Assertion
                 gettype($value)
             );
 
-            throw new InvalidArgumentException($message);
+            throw new AssertionFailed($message);
         }
     }
 

@@ -10,9 +10,9 @@ declare(strict_types=1);
 
 namespace Vivarium\Assertion\Test\Conditional;
 
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Conditional\All;
+use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Hierarchy\IsAssignableTo;
 use Vivarium\Assertion\Numeric\IsInClosedRange;
 use Vivarium\Assertion\String\Contains;
@@ -33,7 +33,7 @@ final class AllTest extends TestCase
      */
     public function testAssert(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected string to be long at least 10. Got 6.');
 
         (new All(
@@ -53,7 +53,7 @@ final class AllTest extends TestCase
      */
     public function testAssertFailLater(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected number to be in closed range [0, 1]. Got 5.');
 
         (new All(

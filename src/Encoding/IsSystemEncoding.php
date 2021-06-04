@@ -10,9 +10,9 @@ declare(strict_types=1);
 
 namespace Vivarium\Assertion\Encoding;
 
-use InvalidArgumentException;
 use ValueError;
 use Vivarium\Assertion\Assertion;
+use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Helpers\TypeToString;
 use Vivarium\Assertion\Type\IsBoolean;
 use Vivarium\Assertion\Type\IsString;
@@ -36,7 +36,7 @@ final class IsSystemEncoding implements Assertion
                 (new TypeToString())($value)
             );
 
-            throw new InvalidArgumentException($message);
+            throw new AssertionFailed($message);
         }
     }
 

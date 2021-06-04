@@ -10,8 +10,8 @@ declare(strict_types=1);
 
 namespace Vivarium\Assertion\Test\String;
 
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\String\IsLong;
 
 /**
@@ -26,7 +26,7 @@ final class IsLongTest extends TestCase
      */
     public function testAssert(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected string to be long 6. Got 5.');
 
         (new IsLong(11))->assert('Hello World');
@@ -40,7 +40,7 @@ final class IsLongTest extends TestCase
      */
     public function testIsLongWithWrongEncoding(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('"Foo" is not a valid system encoding.');
 
         (new IsLong(11, 'Foo'))->assert('foo');
@@ -51,7 +51,7 @@ final class IsLongTest extends TestCase
      */
     public function testAssertWithoutString(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected value to be string. Got integer.');
 
         /**
@@ -68,7 +68,7 @@ final class IsLongTest extends TestCase
      */
     public function testAssertWithMultibyte(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected string to be long 2. Got 1.');
 
         (new IsLong(2, 'UTF-8'))->assert('π');

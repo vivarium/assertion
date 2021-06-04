@@ -10,9 +10,9 @@ declare(strict_types=1);
 
 namespace Vivarium\Assertion\Test\Encoding;
 
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Encoding\IsEncoding;
+use Vivarium\Assertion\Exception\AssertionFailed;
 
 /**
  * @coversDefaultClass \Vivarium\Assertion\Encoding\IsEncoding
@@ -25,7 +25,7 @@ final class IsEncodingTest extends TestCase
      */
     public function testAssert(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('"Windows-1251" is not a valid encoding.');
 
         (new IsEncoding())->assert('UTF-8');
@@ -39,7 +39,7 @@ final class IsEncodingTest extends TestCase
      */
     public function testAssertWithoutString(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected value to be string. Got integer.');
 
         /**

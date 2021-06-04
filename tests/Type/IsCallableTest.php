@@ -10,8 +10,8 @@ declare(strict_types=1);
 
 namespace Vivarium\Assertion\Test\Type;
 
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Type\IsCallable;
 use Vivarium\Assertion\Type\IsInteger;
 
@@ -26,7 +26,7 @@ final class IsCallableTest extends TestCase
      */
     public function testAssert(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected value to be callable. Got integer.');
 
         (new IsCallable())->assert(new IsInteger());

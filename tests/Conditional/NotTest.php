@@ -10,9 +10,9 @@ declare(strict_types=1);
 
 namespace Vivarium\Assertion\Test\Conditional;
 
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Conditional\Not;
+use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Type\IsString;
 
 /**
@@ -26,7 +26,7 @@ final class NotTest extends TestCase
      */
     public function testAssert(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage(
             'Failed negating the assertion "Vivarium\Assertion\Type\IsString" with value "Hello World".'
         );

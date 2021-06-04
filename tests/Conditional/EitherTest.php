@@ -10,9 +10,9 @@ declare(strict_types=1);
 
 namespace Vivarium\Assertion\Test\Conditional;
 
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Conditional\Either;
+use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Numeric\IsGreaterThan;
 use Vivarium\Assertion\Numeric\IsInClosedRange;
 use Vivarium\Assertion\Type\IsInteger;
@@ -29,7 +29,7 @@ final class EitherTest extends TestCase
      */
     public function testAssert(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Failed all assertions in either condition.');
 
         (new Either(

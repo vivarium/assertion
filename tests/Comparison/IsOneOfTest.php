@@ -10,9 +10,9 @@ declare(strict_types=1);
 
 namespace Vivarium\Assertion\Test\Comparison;
 
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Comparison\IsOneOf;
+use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Equality\Equality;
 
 /**
@@ -27,7 +27,7 @@ final class IsOneOfTest extends TestCase
      */
     public function testAssert(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected value to be one of the values provided. Got 27.');
 
         $oneOf = new IsOneOf(1, 5, 7, 42);
@@ -47,7 +47,7 @@ final class IsOneOfTest extends TestCase
      */
     public function testAssertWithEquality(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected value to be one of the values provided. Got different object.');
 
         $element1 = $this->createMock(Equality::class);

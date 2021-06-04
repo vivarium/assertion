@@ -10,8 +10,8 @@ declare(strict_types=1);
 
 namespace Vivarium\Assertion\Test\Numeric;
 
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Numeric\IsLessOrEqualThan;
 
 /**
@@ -26,7 +26,7 @@ final class IsLessOrEqualThanTest extends TestCase
      */
     public function testAssert(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected number to be less or equal than 10. Got 42.');
 
         (new IsLessOrEqualThan(10))->assert(10);
@@ -40,7 +40,7 @@ final class IsLessOrEqualThanTest extends TestCase
      */
     public function testAssertWithoutNumeric(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected value to be either integer or float. Got "String".');
 
         /**

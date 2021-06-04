@@ -10,9 +10,9 @@ declare(strict_types=1);
 
 namespace Vivarium\Assertion\Test\Boolean;
 
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Boolean\IsFalse;
+use Vivarium\Assertion\Exception\AssertionFailed;
 
 /**
  * @coversDefaultClass \Vivarium\Assertion\Boolean\IsFalse
@@ -25,7 +25,7 @@ final class IsFalseTest extends TestCase
      */
     public function testAssert(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected boolean to be false. Got true');
 
         (new IsFalse())->assert(false);
@@ -38,7 +38,7 @@ final class IsFalseTest extends TestCase
      */
     public function testAssertWithoutBoolean(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected value to be boolean. Got integer.');
 
         /**

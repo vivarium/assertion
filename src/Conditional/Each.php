@@ -10,8 +10,8 @@ declare(strict_types=1);
 
 namespace Vivarium\Assertion\Conditional;
 
-use InvalidArgumentException;
 use Vivarium\Assertion\Assertion;
+use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Helpers\TypeToString;
 use Vivarium\Assertion\String\IsEmpty;
 use Vivarium\Assertion\Type\IsArray;
@@ -48,7 +48,7 @@ final class Each implements Assertion
             foreach ($this->assertions as $assertion) {
                 try {
                     $assertion->assert($element);
-                } catch (InvalidArgumentException $ex) {
+                } catch (AssertionFailed $ex) {
                     $message = sprintf(
                         ! (new IsEmpty())($message) ?
                              $message : 'Element at index %2$s failed the assertion.',
@@ -56,7 +56,7 @@ final class Each implements Assertion
                         (new TypeToString())($key)
                     );
 
-                    throw new InvalidArgumentException($message, 0, $ex);
+                    throw new AssertionFailed($message, 0, $ex);
                 }
             }
         }

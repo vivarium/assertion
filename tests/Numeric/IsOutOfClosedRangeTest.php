@@ -10,8 +10,8 @@ declare(strict_types=1);
 
 namespace Vivarium\Assertion\Test\Numeric;
 
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Numeric\IsOutOfClosedRange;
 
 /**
@@ -26,7 +26,7 @@ final class IsOutOfClosedRangeTest extends TestCase
      */
     public function testAssert(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected value to be out of closed range [0, 9]. Got 5.');
 
         static::assertFalse((new IsOutOfClosedRange(0, 9))(0));
@@ -41,7 +41,7 @@ final class IsOutOfClosedRangeTest extends TestCase
      */
     public function testAssertWithWrongRange(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Lower bound must be lower than upper bound. Got [10, 0].');
 
         (new IsOutOfClosedRange(10, 0))->assert(5);
@@ -53,7 +53,7 @@ final class IsOutOfClosedRangeTest extends TestCase
      */
     public function testAssertWithoutNumeric(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected value to be either integer or float. Got "String".');
 
         /**

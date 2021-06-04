@@ -10,9 +10,9 @@ declare(strict_types=1);
 
 namespace Vivarium\Assertion\Test\Encoding;
 
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Encoding\IsRegexEncoding;
+use Vivarium\Assertion\Exception\AssertionFailed;
 
 use function mb_regex_encoding;
 
@@ -27,7 +27,7 @@ final class IsRegexEncodingTest extends TestCase
      */
     public function testAssert(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('"Windows-1251" is not a valid regex encoding.');
 
         (new IsRegexEncoding())->assert('UTF-8');
@@ -53,7 +53,7 @@ final class IsRegexEncodingTest extends TestCase
      */
     public function testAssertWithoutString(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected value to be string. Got integer.');
 
         /**

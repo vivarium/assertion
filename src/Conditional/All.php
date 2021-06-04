@@ -10,8 +10,8 @@ declare(strict_types=1);
 
 namespace Vivarium\Assertion\Conditional;
 
-use InvalidArgumentException;
 use Vivarium\Assertion\Assertion;
+use Vivarium\Assertion\Exception\AssertionFailed;
 
 use function array_merge;
 
@@ -50,7 +50,7 @@ final class All implements Assertion
     {
         try {
             $this->assert($value);
-        } catch (InvalidArgumentException $ex) {
+        } catch (AssertionFailed $ex) {
             return false;
         }
 

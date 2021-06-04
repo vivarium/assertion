@@ -10,8 +10,8 @@ declare(strict_types=1);
 
 namespace Vivarium\Assertion\Test\Hierarchy;
 
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Hierarchy\IsAssignableTo;
 use Vivarium\Assertion\Test\Stub\Stub;
 use Vivarium\Assertion\Test\Stub\StubClass;
@@ -31,7 +31,7 @@ final class IsAssignableToTest extends TestCase
      */
     public function testAssert(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage(
             sprintf(
                 'Expected class "%s" to be assignable to "%2$s".',
@@ -51,7 +51,7 @@ final class IsAssignableToTest extends TestCase
      */
     public function testConstructorWithoutClass(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Argument must be a class or interface name. Got "RandomString"');
 
         /**
@@ -71,7 +71,7 @@ final class IsAssignableToTest extends TestCase
      */
     public function testAssertWithoutClass(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Argument must be a class or interface name. Got "RandomString"');
 
         /**

@@ -10,10 +10,10 @@ declare(strict_types=1);
 
 namespace Vivarium\Assertion\Test\Conditional;
 
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Traversable;
 use Vivarium\Assertion\Conditional\Each;
+use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\Numeric\IsGreaterOrEqualThan;
 use Vivarium\Assertion\Numeric\IsInClosedRange;
 use Vivarium\Assertion\Numeric\IsLessThan;
@@ -31,7 +31,7 @@ final class EachTest extends TestCase
      */
     public function testAssert(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Element at index 0 failed the assertion.');
 
         $stub = $this->createMock(Traversable::class);
@@ -55,7 +55,7 @@ final class EachTest extends TestCase
      */
     public function testAssertFailLater(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Element at index 3 failed the assertion.');
 
         (new Each(
@@ -70,7 +70,7 @@ final class EachTest extends TestCase
      */
     public function testAssertWithoutArray(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected value to be array. Got integer.');
 
         /**
@@ -101,7 +101,7 @@ final class EachTest extends TestCase
      */
     public function testInvokeWithoutArray(): void
     {
-        static::expectException(InvalidArgumentException::class);
+        static::expectException(AssertionFailed::class);
         static::expectExceptionMessage('Expected value to be array. Got integer.');
 
         /**
