@@ -20,6 +20,7 @@ use function strpos;
 
 /**
  * @template-implements Assertion<string>
+ * @psalm-immutable
  */
 final class Contains implements Assertion
 {
@@ -32,6 +33,8 @@ final class Contains implements Assertion
 
     /**
      * @param string $value
+     *
+     * @throws AssertionFailed
      */
     public function assert($value, string $message = ''): void
     {

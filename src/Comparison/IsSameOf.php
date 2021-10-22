@@ -21,6 +21,7 @@ use function sprintf;
 /**
  * @template T
  * @template-implements Assertion<T>
+ * @psalm-immutable
  */
 final class IsSameOf implements Assertion
 {

@@ -22,6 +22,7 @@ use function sprintf;
 
 /**
  * @template-implements Assertion<string>
+ * @psalm-immutable
  */
 final class IsSystemEncoding implements Assertion
 {
@@ -43,6 +44,7 @@ final class IsSystemEncoding implements Assertion
     /**
      * @param string $value
      *
+     * @psalm-suppress ImpureFunctionCall  mb_internal_encoding is called and then restored
      * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
     public function __invoke($value): bool

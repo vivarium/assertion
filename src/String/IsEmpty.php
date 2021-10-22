@@ -20,11 +20,14 @@ use function strlen;
 
 /**
  * @template-implements Assertion<string>
+ * @psalm-immutable
  */
 final class IsEmpty implements Assertion
 {
     /**
      * @param string $value
+     *
+     * @throws AssertionFailed
      */
     public function assert($value, string $message = ''): void
     {

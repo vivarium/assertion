@@ -20,11 +20,14 @@ use function sprintf;
 
 /**
  * @template-implements Assertion<string>
+ * @psalm-immutable
  */
 final class IsClass implements Assertion
 {
     /**
      * @param string $value
+     *
+     * @throws AssertionFailed
      *
      * @psalm-assert class-string $value
      */
@@ -50,6 +53,11 @@ final class IsClass implements Assertion
     {
         (new IsString())->assert($value);
 
+        /**
+         * This function triggers the autoload but i think is an acceptable side effect
+         *
+         * @psalm-suppress ImpureFunctionCall
+         */
         return class_exists($value);
     }
 }

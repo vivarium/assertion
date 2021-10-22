@@ -5,7 +5,7 @@
          xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 https://pmd.sf.net/ruleset_xml_schema.xsd"
          xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
 
-    <description>The ruleset for Vivarium Equality.</description>
+    <description>The ruleset for Vivarium Assertion.</description>
 
     <rule ref="rulesets/cleancode.xml"/>
     <rule ref="rulesets/codesize.xml" />

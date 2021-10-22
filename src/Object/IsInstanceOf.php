@@ -32,6 +32,10 @@ final class IsInstanceOf implements Assertion
 
     /**
      * @param class-string<T> $class
+     *
+     * @throws AssertionFailed
+     *
+     * @psalm-mutation-free
      */
     public function __construct(string $class)
     {
@@ -46,7 +50,11 @@ final class IsInstanceOf implements Assertion
     /**
      * @param object $value
      *
+     * @throws AssertionFailed
+     *
      * @psalm-assert T $value
+     *
+     * @psalm-mutation-free
      */
     public function assert($value, string $message = ''): void
     {
@@ -65,7 +73,11 @@ final class IsInstanceOf implements Assertion
     /**
      * @param object $value
      *
+     * @throws AssertionFailed
+     *
      * @psalm-assert-if-true T $value
+     *
+     * @psalm-mutation-free
      */
     public function __invoke($value): bool
     {

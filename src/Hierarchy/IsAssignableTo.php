@@ -22,6 +22,7 @@ use function sprintf;
 /**
  * @template T
  * @template-implements Assertion<class-string>
+ * @psalm-immutable
  */
 final class IsAssignableTo implements Assertion
 {

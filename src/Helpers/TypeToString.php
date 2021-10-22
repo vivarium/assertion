@@ -17,6 +17,8 @@ use function is_string;
 
 /**
  * @internal
+ *
+ * @psalm-immutable
  */
 final class TypeToString
 {

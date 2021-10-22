@@ -22,6 +22,7 @@ use function sprintf;
 
 /**
  * @template-implements Assertion<string>
+ * @psalm-immutable
  */
 final class IsLongAtLeast implements Assertion
 {
@@ -40,6 +41,8 @@ final class IsLongAtLeast implements Assertion
 
     /**
      * @param string $value
+     *
+     *  @throws AssertionFailed
      */
     public function assert($value, string $message = ''): void
     {

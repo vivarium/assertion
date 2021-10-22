@@ -12,9 +12,11 @@ namespace Vivarium\Assertion\String;
 
 use Vivarium\Assertion\Assertion;
 use Vivarium\Assertion\Conditional\Either;
+use Vivarium\Assertion\Exception\AssertionFailed;
 
 /**
  * @template-implements Assertion<string>
+ * @psalm-immutable
  */
 final class IsClassOrInterface implements Assertion
 {
@@ -31,6 +33,8 @@ final class IsClassOrInterface implements Assertion
 
     /**
      * @param string $value
+     *
+     * @throws AssertionFailed
      *
      * @psalm-assert class-string $value
      */

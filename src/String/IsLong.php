@@ -21,6 +21,7 @@ use function sprintf;
 
 /**
  * @template-implements Assertion<string>
+ * @psalm-immutable
  */
 final class IsLong implements Assertion
 {
@@ -38,6 +39,8 @@ final class IsLong implements Assertion
 
     /**
      * @param string $value
+     *
+     * @throws AssertionFailed
      */
     public function assert($value, string $message = ''): void
     {

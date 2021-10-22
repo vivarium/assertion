@@ -22,6 +22,7 @@ use function sprintf;
 /**
  * @template T
  * @template-implements Assertion<array<T>>
+ * @psalm-immutable
  */
 final class Each implements Assertion
 {

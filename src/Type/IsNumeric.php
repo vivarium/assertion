@@ -12,10 +12,12 @@ namespace Vivarium\Assertion\Type;
 
 use Vivarium\Assertion\Assertion;
 use Vivarium\Assertion\Conditional\Either;
+use Vivarium\Assertion\Exception\AssertionFailed;
 use Vivarium\Assertion\String\IsEmpty;
 
 /**
  * @template-implements Assertion<mixed>
+ * @psalm-immutable
  */
 final class IsNumeric implements Assertion
 {
@@ -32,6 +34,8 @@ final class IsNumeric implements Assertion
 
     /**
      * @param mixed $value
+     *
+     * @throws AssertionFailed
      *
      * @psalm-assert int|float $value
      */

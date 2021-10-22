@@ -21,11 +21,14 @@ use function sprintf;
 
 /**
  * @template-implements Assertion<mixed>
+ * @psalm-immutable
  */
 final class IsObject implements Assertion
 {
     /**
      * @param mixed $value
+     *
+     * @throws AssertionFailed
      *
      * @psalm-assert object $value
      */

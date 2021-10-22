@@ -21,6 +21,7 @@ use function sprintf;
 /**
  * @template T
  * @template-implements Assertion<T>
+ * @psalm-immutable
  */
 final class Either implements Assertion
 {
@@ -38,6 +39,8 @@ final class Either implements Assertion
 
     /**
      * @param T $value
+     *
+     * @psalm-assert T $value
      */
     public function assert($value, string $message = ''): void
     {
@@ -54,6 +57,8 @@ final class Either implements Assertion
 
     /**
      * @param T $value
+     *
+     * @psalm-assert-if-true T $value
      */
     public function __invoke($value): bool
     {

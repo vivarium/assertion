@@ -21,11 +21,14 @@ use function sprintf;
 
 /**
  * @template-implements Assertion<mixed>
+ * @psalm-immutable
  */
 final class IsCallable implements Assertion
 {
     /**
      * @param mixed $value
+     *
+     * @throws AssertionFailed
      *
      * @psalm-assert callable $value
      */

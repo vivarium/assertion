@@ -20,6 +20,7 @@ use function sprintf;
 
 /**
  * @template-implements Assertion<bool>
+ * @psalm-immutable
  */
 final class IsFalse implements Assertion
 {

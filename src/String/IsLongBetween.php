@@ -21,6 +21,7 @@ use function sprintf;
 
 /**
  * @template-implements Assertion<string>
+ * @psalm-immutable
  */
 final class IsLongBetween implements Assertion
 {
@@ -41,6 +42,8 @@ final class IsLongBetween implements Assertion
 
     /**
      * @param string $value
+     *
+     * @throws AssertionFailed
      */
     public function assert($value, string $message = ''): void
     {

@@ -20,6 +20,7 @@ use function sprintf;
 
 /**
  * @template-implements Assertion<int|float>
+ * @psalm-immutable
  */
 final class IsOutOfOpenRange implements Assertion
 {

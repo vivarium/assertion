@@ -22,6 +22,7 @@ use function substr;
 
 /**
  * @template-implements Assertion<string>
+ * @psalm-immutable
  */
 final class EndsWith implements Assertion
 {
@@ -34,6 +35,8 @@ final class EndsWith implements Assertion
 
     /**
      * @param string $value
+     *
+     * @throws AssertionFailed
      */
     public function assert($value, string $message = ''): void
     {

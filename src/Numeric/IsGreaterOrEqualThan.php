@@ -20,6 +20,7 @@ use function sprintf;
 
 /**
  * @template-implements Assertion<int|float>
+ * @psalm-immutable
  */
 final class IsGreaterOrEqualThan implements Assertion
 {
@@ -39,6 +40,8 @@ final class IsGreaterOrEqualThan implements Assertion
 
     /**
      * @param int|float $value
+     *
+     * @throws AssertionFailed
      */
     public function assert($value, string $message = ''): void
     {

@@ -20,11 +20,14 @@ use function sprintf;
 
 /**
  * @template-implements Assertion<string>
+ * @psalm-immutable
  */
 final class IsInterface implements Assertion
 {
     /**
      * @param string $value
+     *
+     * @throws AssertionFailed
      *
      * @psalm-assert class-string $value
      */

@@ -13,14 +13,10 @@ namespace Vivarium\Assertion\Test\Conditional;
 use PHPUnit\Framework\TestCase;
 use Vivarium\Assertion\Conditional\All;
 use Vivarium\Assertion\Exception\AssertionFailed;
-use Vivarium\Assertion\Hierarchy\IsAssignableTo;
-use Vivarium\Assertion\Numeric\IsInClosedRange;
+use Vivarium\Assertion\Numeric\IsGreaterThan;
+use Vivarium\Assertion\Numeric\IsLessOrEqualThan;
 use Vivarium\Assertion\String\Contains;
-use Vivarium\Assertion\String\IsClass;
 use Vivarium\Assertion\String\IsLongAtLeast;
-use Vivarium\Assertion\Test\Stub\Stub;
-use Vivarium\Assertion\Test\Stub\StubClassExtension;
-use Vivarium\Assertion\Type\IsInteger;
 
 /**
  * @coversDefaultClass \Vivarium\Assertion\Conditional\All
@@ -37,8 +33,8 @@ final class AllTest extends TestCase
         static::expectExceptionMessage('Expected string to be long at least 10. Got 6.');
 
         (new All(
-            new IsInteger(),
-            new IsInClosedRange(0, 9)
+            new IsGreaterThan(0),
+            new IsLessOrEqualThan(7)
         ))->assert(5);
 
         (new All(
@@ -54,11 +50,11 @@ final class AllTest extends TestCase
     public function testAssertFailLater(): void
     {
         static::expectException(AssertionFailed::class);
-        static::expectExceptionMessage('Expected number to be in closed range [0, 1]. Got 5.');
+        static::expectExceptionMessage('Expected number to be less or equal than 1. Got 5.');
 
         (new All(
-            new IsInteger(),
-            new IsInClosedRange(0, 1)
+            new IsGreaterThan(0),
+            new IsLessOrEqualThan(1)
         ))->assert(5);
     }
 
@@ -67,21 +63,25 @@ final class AllTest extends TestCase
      */
     public function testInvoke(): void
     {
-        $assertion = new All(
-            new IsClass(),
-            /**
-             * @TODO PHPStan does not recognize class-string as subtype of string.
-             * @phpstan-ignore-next-line
-             */
-            new IsAssignableTo(StubClassExtension::class)
-        );
+        $assertion1 = (new All(
+            new IsGreaterThan(0),
+            new IsLessOrEqualThan(7)
+        ));
 
-        $assertion1 = new All(
-            new IsInteger(),
-            new IsInClosedRange(0, 9)
-        );
-
-        static::assertFalse($assertion(Stub::class));
         static::assertTrue($assertion1(5));
+    }
+
+    /**
+     * @covers ::__construct()
+     * @covers ::__invoke()
+     */
+    public function testInvokeFail(): void
+    {
+        $assertion = (new All(
+            new IsGreaterThan(0),
+            new IsLessOrEqualThan(1)
+        ));
+
+        static::assertFalse($assertion(7));
     }
 }

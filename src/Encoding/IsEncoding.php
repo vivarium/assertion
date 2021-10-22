@@ -20,6 +20,7 @@ use function sprintf;
 
 /**
  * @template-implements Assertion<string>
+ * @psalm-immutable
  */
 final class IsEncoding implements Assertion
 {
