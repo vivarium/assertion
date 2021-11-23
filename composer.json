@@ -18,12 +18,12 @@
     },
     "require-dev": {
         "doctrine/coding-standard": "^9.0.0",
-        "infection/infection": "^0.23",
+        "infection/infection": "^0.25",
         "phpmd/phpmd": "^2.0",
-        "phpstan/phpstan": "^0.12",
-        "phpstan/phpstan-strict-rules": "^0.12",
+        "phpstan/phpstan": "^1.0",
+        "phpstan/phpstan-strict-rules": "^1.0",
         "phpunit/phpunit": "^9.3",
-        "psalm/plugin-phpunit": "^0.15",
+        "psalm/plugin-phpunit": "^0.16",
         "vimeo/psalm": "^4.0"
     },
     "autoload": {
